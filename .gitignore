@@ -1,0 +1,23 @@
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+.env
+.env.example
+.env.production
+.env.development
+.env.staging
+.env.test
+
+.venv
+
+nodenv.md   
+backend.env     
+noenv.md
