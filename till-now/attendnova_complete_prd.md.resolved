@@ -436,77 +436,98 @@ backend/
 
 ### 4.3 Database Schema
 
-#### Users Table
-```sql
-- id (Primary Key)
-- email (Unique)
-- password_hash
-- full_name
-- phone
-- role (Employee/Manager/Admin)
-- department_id (Foreign Key)
-- manager_id (Foreign Key to Users)
-- profile_photo_url
-- is_active
-- created_at
-- updated_at
-```
-
 #### Departments Table
 ```sql
-- id (Primary Key)
-- name
-- manager_id (Foreign Key to Users)
-- description
-- location
-- created_at
-- updated_at
+- id (UUID, Primary Key)
+- name (VARCHAR, Unique)
+- location (VARCHAR)
+- geofence_lat (DECIMAL)
+- geofence_lng (DECIMAL)
+- allowed_radius_meters (INT)
+- created_at (TIMESTAMPTZ)
 ```
 
-#### Attendance Table
+#### Shifts Table
 ```sql
-- id (Primary Key)
-- user_id (Foreign Key)
-- check_in_time
-- check_in_location (Lat, Long)
-- check_out_time
-- check_out_location (Lat, Long)
-- total_hours
-- status (Present/Absent/Half Day)
-- date
-- notes
-- created_at
-- updated_at
+- id (UUID, Primary Key)
+- name (VARCHAR)
+- start_time (TIME)
+- end_time (TIME)
+- grace_period_minutes (INT)
+- created_at (TIMESTAMPTZ)
+```
+
+#### Users Table
+```sql
+- id (UUID, Primary Key, REFERENCES auth.users)
+- email (VARCHAR, Unique)
+- full_name (VARCHAR)
+- phone (VARCHAR)
+- role (VARCHAR: ADMIN/MANAGER/EMPLOYEE)
+- work_type (VARCHAR: FIELD/OFFICE)
+- department_id (UUID, Foreign Key)
+- manager_id (UUID, Foreign Key to Users)
+- shift_id (UUID, Foreign Key to Shifts)
+- profile_photo_url (TEXT)
+- is_active (BOOLEAN)
+- deleted_at (TIMESTAMPTZ)
+- created_at (TIMESTAMPTZ)
+- updated_at (TIMESTAMPTZ)
+```
+
+#### Leave Balances Table
+```sql
+- id (UUID, Primary Key)
+- user_id (UUID, Foreign Key)
+- year (INT)
+- leave_type (VARCHAR: SICK/CASUAL/ANNUAL)
+- total_days (INT)
+- used_days (INT)
+- pending_days (INT)
+```
+
+#### Attendance Sessions Table
+```sql
+- id (UUID, Primary Key)
+- user_id (UUID, Foreign Key)
+- shift_id (UUID, Foreign Key)
+- shift_date (DATE)
+- clock_in (TIMESTAMPTZ)
+- clock_out (TIMESTAMPTZ)
+- total_hours (DECIMAL)
+- status (VARCHAR: PRESENT/HALF_DAY/ABSENT)
+- is_out_of_bounds (BOOLEAN)
+- verification_status (VARCHAR: APPROVED/PENDING_APPROVAL/REJECTED)
+- created_at (TIMESTAMPTZ)
+```
+
+#### Activity Logs Table
+```sql
+- id (UUID, Primary Key)
+- session_id (UUID, Foreign Key)
+- activity_type (VARCHAR: TRAVEL/MEETING/WORK/BREAK)
+- start_time (TIMESTAMPTZ)
+- end_time (TIMESTAMPTZ)
+- latitude (DECIMAL)
+- longitude (DECIMAL)
+- location_name (VARCHAR)
+- notes (TEXT)
 ```
 
 #### Leaves Table
 ```sql
-- id (Primary Key)
-- user_id (Foreign Key)
-- leave_type (Sick/Casual/Annual)
-- start_date
-- end_date
-- total_days
-- reason
-- status (Pending/Approved/Rejected)
-- approved_by (Foreign Key to Users)
-- approval_date
-- manager_comments
-- attachment_url
-- created_at
-- updated_at
-```
-
-#### Holidays Table
-```sql
-- id (Primary Key)
-- name
-- date
-- is_optional
-- department_id (NULL for company-wide)
-- description
-- created_at
-- updated_at
+- id (UUID, Primary Key)
+- user_id (UUID, Foreign Key)
+- leave_type (VARCHAR: Sick/Casual/Annual)
+- start_date (DATE)
+- end_date (DATE)
+- total_days (INT)
+- reason (TEXT)
+- attachment_url (TEXT)
+- status (VARCHAR: PENDING/APPROVED/REJECTED)
+- approved_by (UUID, Foreign Key to Users)
+- manager_comments (TEXT)
+- created_at (TIMESTAMPTZ)
 ```
 
 ---
