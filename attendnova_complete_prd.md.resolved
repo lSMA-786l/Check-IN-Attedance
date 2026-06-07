@@ -1,0 +1,952 @@
+# AttendNova - Complete Product Requirements Document
+
+## Executive Summary
+
+AttendNova is a comprehensive attendance tracking and management system designed for organizations to streamline employee attendance, leave management, and workforce analytics. The system provides role-based access for Employees, Managers, and Admins with distinct features tailored to each role's responsibilities.
+
+---
+
+## Table of Contents
+
+1. [Project Overview](#project-overview)
+2. [User Roles & Personas](#user-roles--personas)
+3. [Core Features by Role](#core-features-by-role)
+4. [Technical Architecture](#technical-architecture)
+5. [User Experience Design](#user-experience-design)
+6. [Data Models](#data-models)
+7. [API Specifications](#api-specifications)
+8. [Security & Authentication](#security--authentication)
+9. [Performance Requirements](#performance-requirements)
+10. [Future Roadmap](#future-roadmap)
+
+---
+
+## 1. Project Overview
+
+### Vision
+Create an intuitive, modern, and feature-rich attendance management system that eliminates manual attendance tracking and provides real-time insights into workforce presence.
+
+### Goals
+- Automate attendance tracking with location verification
+- Streamline leave request and approval workflows
+- Provide comprehensive analytics for managers and admins
+- Ensure mobile-first responsive design
+- Deliver exceptional user experience with modern UI/UX
+
+### Technology Stack
+- **Frontend**: Flutter/Dart (Mobile & Web)
+- **Backend**: Flask/Python REST API
+- **Database**: PostgreSQL/MySQL
+- **Authentication**: JWT tokens
+- **Location Services**: GPS/Geolocation API
+
+---
+
+## 2. User Roles & Personas
+
+### 2.1 Employee
+**Primary User**: Regular employees who need to track their attendance and manage leaves.
+
+**Needs**:
+- Quick and easy check-in/check-out
+- View attendance history
+- Request and track leaves
+- Access profile and settings
+
+### 2.2 Manager
+**Primary User**: Team leads and department managers overseeing employee attendance.
+
+**Needs**:
+- Monitor team attendance in real-time
+- Approve/reject leave requests
+- Generate team reports
+- View individual employee performance
+
+### 2.3 Admin
+**Primary User**: HR personnel and system administrators with full access.
+
+**Needs**:
+- Manage all users and departments
+- Configure system settings
+- Access company-wide analytics
+- Create and assign roles
+
+---
+
+## 3. Core Features by Role
+
+## 3.1 Employee Features (✅ IMPLEMENTED)
+
+### 3.1.1 Authentication & Profile
+- **Login/Logout**: Secure authentication with JWT tokens
+- **Profile Management**: 
+  - View and edit personal information
+  - Update profile photo
+  - Change password
+  - Manage notification preferences
+
+### 3.1.2 Attendance Management
+- **Mark Attendance Card**:
+  - Check-in with current location and timestamp
+  - Check-out functionality
+  - Real-time location capture and display
+  - Visual feedback for attendance status
+  - Persistent state across sessions
+  
+- **Attendance History**:
+  - Calendar view of attendance records
+  - Filter by date range
+  - View check-in/check-out times
+  - Location verification data
+  - Export attendance records
+
+### 3.1.3 Leave Management
+- **Leave Request**:
+  - Select leave type (Sick, Casual, Annual, etc.)
+  - Date range picker
+  - Add reason/notes
+  - Attach supporting documents
+  - Submit to manager for approval
+  
+- **Leave Status Tracking**:
+  - View pending requests
+  - Check approved/rejected leaves
+  - View leave balance
+  - Notification for status updates
+
+### 3.1.4 Dashboard
+- **Home Screen**:
+  - Quick attendance marking
+  - Today's status summary
+  - Upcoming leaves
+  - Recent activity
+  - Statistics cards (days present, absent, leaves taken)
+
+### 3.1.5 Settings
+- **User Preferences**:
+  - Theme selection (Dark/Light mode)
+  - Notification settings
+  - Language preferences
+  - Privacy settings
+
+---
+
+## 3.2 Manager Features (⏳ TO BE IMPLEMENTED)
+
+### 3.2.1 Manager Dashboard
+- **Overview Statistics**:
+  - Total employees under management
+  - Present/Absent count (today)
+  - Pending leave requests counter
+  - Week-off schedule
+  - Department performance metrics
+
+- **Quick Actions**:
+  - Approve/Reject leave (quick action)
+  - View team attendance
+  - Generate reports
+  - Access employee details
+
+### 3.2.2 Team Management
+- **Employee List**:
+  - Searchable table with all team members
+  - Filters:
+    - By attendance status (Present, Absent, On Leave)
+    - By department
+    - By date range
+  - Sort options (Name, Join Date, Attendance %)
+  
+- **Employee Detail View**:
+  - Complete profile information
+  - Attendance history
+  - Leave history and balance
+  - Performance metrics
+  - Contact information
+
+### 3.2.3 Attendance Monitoring
+- **Real-time Tracking**:
+  - Live dashboard showing who's checked in
+  - Location verification on map
+  - Late arrivals and early departures
+  - Absent employees list
+  
+- **Attendance Reports**:
+  - Daily/Weekly/Monthly reports
+  - Individual employee reports
+  - Department-wise summary
+  - Custom date range selection
+  - Export to PDF/Excel
+
+### 3.2.4 Leave Management
+- **Leave Approval Workflow**:
+  - Pending requests queue
+  - Review leave details
+  - Approve/Reject with comments
+  - Bulk approval option
+  - Email notifications to employees
+  
+- **Leave Analytics**:
+  - Team leave calendar
+  - Leave pattern analysis
+  - Leave balance overview
+  - Forecasting for resource planning
+
+### 3.2.5 Notifications
+- **Alert System**:
+  - New leave request notifications
+  - Attendance anomalies
+  - Team milestones
+  - System updates
+
+### 3.2.6 Reports & Analytics
+- **Visualizations**:
+  - Attendance trends (charts/graphs)
+  - Department comparisons
+  - Monthly/Weekly patterns
+  - Absence rate tracking
+  
+- **Export Options**:
+  - PDF reports with company branding
+  - Excel spreadsheets
+  - CSV for data analysis
+  - Scheduled automated reports
+
+---
+
+## 3.3 Admin Features (⏳ TO BE IMPLEMENTED)
+
+### 3.3.1 Admin Dashboard
+- **System Overview**:
+  - Total users (breakdown by role)
+  - Company-wide attendance stats
+  - Department statistics
+  - System health indicators
+  - Recent activity log
+  
+- **Quick Stats Cards**:
+  - Total Employees
+  - Total Managers
+  - Departments count
+  - Pending user approvals
+  - System uptime
+
+### 3.3.2 User Management
+- **Create User**:
+  - Animated role selection (Employee/Manager/Admin)
+  - Form fields:
+    - Full Name
+    - Email address
+    - Password (auto-generate option)
+    - Phone number
+    - Department assignment
+    - Reporting manager (for employees)
+    - Employment type
+    - Join date
+  - Form validation
+  - Success animation after creation
+  - Email invitation option
+  
+- **Edit User**:
+  - Update user details
+  - Change role
+  - Reassign department
+  - Modify reporting structure
+  - Deactivate/Activate account
+  
+- **Delete User**:
+  - Soft delete option
+  - Confirmation dialog
+  - Archive user data
+  - Transfer responsibilities
+  
+- **User List View**:
+  - Advanced search and filters
+  - Filter by role, department, status
+  - Bulk actions (activate, deactivate, delete)
+  - Export user list
+  - Import users from CSV
+
+### 3.3.3 Department Management
+- **Create Department**:
+  - Department name
+  - Assign department head (Manager)
+  - Set department policies
+  - Define working hours
+  - Location/Office assignment
+  
+- **Edit Department**:
+  - Update department details
+  - Reassign manager
+  - Modify policies
+  - Set department-specific holidays
+  
+- **Department Analytics**:
+  - Per-department attendance metrics
+  - Manager performance comparison
+  - Resource allocation
+  - Department growth tracking
+
+### 3.3.4 System Configuration
+- **General Settings**:
+  - Company name and branding
+  - Logo upload
+  - Working hours (start/end time)
+  - Weekend configuration
+  - Time zone settings
+  
+- **Attendance Rules**:
+  - Grace period for late check-in
+  - Minimum work hours
+  - Break time policies
+  - Location radius for check-in
+  - Auto check-out time
+  
+- **Leave Policies**:
+  - Leave types configuration
+  - Annual leave quota
+  - Carryover rules
+  - Leave accrual settings
+  - Approval hierarchy
+  
+- **Notification Settings**:
+  - Email templates
+  - SMS integration
+  - Push notification configuration
+  - Reminder schedules
+
+### 3.3.5 Holiday Management
+- **Add Holidays**:
+  - Holiday name
+  - Date selection
+  - Optional (working/non-working)
+  - Department-specific holidays
+  - Recurring holidays
+  
+- **Calendar View**:
+  - Yearly calendar display
+  - Color-coded by type
+  - Quick add/edit
+  - Export calendar
+  
+- **Import Holidays**:
+  - Bulk upload from CSV
+  - Integration with public holiday APIs
+  - Regional holiday templates
+
+### 3.3.6 Advanced Analytics & Reports
+- **Company-Wide Reports**:
+  - Overall attendance percentage
+  - Department comparisons
+  - Trend analysis over time
+  - Absence patterns
+  - Productivity metrics
+  
+- **Custom Report Builder**:
+  - Select metrics
+  - Choose date ranges
+  - Filter by departments/roles
+  - Save report templates
+  - Schedule automated delivery
+  
+- **Visualizations**:
+  - Interactive charts and graphs
+  - Heat maps for attendance
+  - Comparison dashboards
+  - Real-time data updates
+  
+- **Export Capabilities**:
+  - Multiple formats (PDF, Excel, CSV, JSON)
+  - Branded reports
+  - Email delivery
+  - Cloud storage integration
+
+### 3.3.7 Audit & Compliance
+- **Audit Logs**:
+  - User activity tracking
+  - System changes log
+  - Login/Logout history
+  - Data modification tracking
+  
+- **Compliance Reports**:
+  - Labor law compliance
+  - Working hours adherence
+  - Leave policy compliance
+  - Data retention policies
+
+### 3.3.8 Integration Management
+- **API Access**:
+  - Generate API keys
+  - Webhook configuration
+  - Third-party integrations
+  - SSO setup (SAML, OAuth)
+  
+- **Data Import/Export**:
+  - Bulk data operations
+  - Migration tools
+  - Backup/Restore functionality
+
+---
+
+## 4. Technical Architecture
+
+### 4.1 Frontend Architecture (Flutter)
+```
+lib/
+├── core/
+│   ├── router/          # App navigation and routing
+│   ├── services/        # API services, auth service
+│   ├── theme/           # App theming and colors
+│   ├── utils/           # Helper functions
+│   └── widgets/         # Reusable UI components
+├── data/
+│   ├── models/          # Data models
+│   └── mock/            # Mock data for development
+└── features/
+    ├── employee/        # Employee-specific features
+    │   ├── data/
+    │   ├── domain/
+    │   └── presentation/
+    ├── manager/         # Manager-specific features
+    │   ├── data/
+    │   ├── domain/
+    │   └── presentation/
+    └── admin/           # Admin-specific features
+        ├── data/
+        ├── domain/
+        └── presentation/
+```
+
+### 4.2 Backend Architecture (Flask)
+```
+backend/
+├── app/
+│   ├── models/          # Database models
+│   ├── routes/          # API endpoints
+│   │   ├── auth.py
+│   │   ├── employee.py
+│   │   ├── manager.py
+│   │   └── admin.py
+│   ├── services/        # Business logic
+│   ├── utils/           # Helper functions
+│   └── middleware/      # Auth, CORS, etc.
+├── config/              # Configuration files
+├── migrations/          # Database migrations
+└── tests/               # Unit and integration tests
+```
+
+### 4.3 Database Schema
+
+#### Users Table
+```sql
+- id (Primary Key)
+- email (Unique)
+- password_hash
+- full_name
+- phone
+- role (Employee/Manager/Admin)
+- department_id (Foreign Key)
+- manager_id (Foreign Key to Users)
+- profile_photo_url
+- is_active
+- created_at
+- updated_at
+```
+
+#### Departments Table
+```sql
+- id (Primary Key)
+- name
+- manager_id (Foreign Key to Users)
+- description
+- location
+- created_at
+- updated_at
+```
+
+#### Attendance Table
+```sql
+- id (Primary Key)
+- user_id (Foreign Key)
+- check_in_time
+- check_in_location (Lat, Long)
+- check_out_time
+- check_out_location (Lat, Long)
+- total_hours
+- status (Present/Absent/Half Day)
+- date
+- notes
+- created_at
+- updated_at
+```
+
+#### Leaves Table
+```sql
+- id (Primary Key)
+- user_id (Foreign Key)
+- leave_type (Sick/Casual/Annual)
+- start_date
+- end_date
+- total_days
+- reason
+- status (Pending/Approved/Rejected)
+- approved_by (Foreign Key to Users)
+- approval_date
+- manager_comments
+- attachment_url
+- created_at
+- updated_at
+```
+
+#### Holidays Table
+```sql
+- id (Primary Key)
+- name
+- date
+- is_optional
+- department_id (NULL for company-wide)
+- description
+- created_at
+- updated_at
+```
+
+---
+
+## 5. User Experience Design
+
+### 5.1 Design Principles
+- **Mobile-First & Fully Responsive**: Optimize for mobile devices first, then scale seamlessly to tablets and desktop
+- **Royal Plum Theme**: Elegant light theme with sophisticated color palette
+- **Minimalist**: Clean, uncluttered interfaces with purposeful whitespace
+- **Responsive Breakpoints**: 
+  - Mobile: 320px - 767px (single column layouts, bottom navigation)
+  - Tablet: 768px - 1023px (2-column grids where appropriate)
+  - Desktop: 1024px+ (multi-column layouts, sidebar navigation)
+- **Accessible**: WCAG 2.1 AA compliance with proper contrast ratios
+
+### 5.2 Royal Plum Design Specifications
+
+#### 5.2.1 Primary Color Palette
+```
+Primary Colors:
+├─ Deep Plum: #310A31 (Primary brand color, buttons, headers)
+├─ Cream Background: #F4ECD6 (Main background color)
+└─ Card White: #FFFFFF (Card backgrounds, elevated surfaces)
+
+Text Colors:
+├─ Dark Heading: #310A31 (Primary headings on light backgrounds)
+├─ Light Heading: #F4ECD6 (Headings on dark backgrounds)
+├─ Body Text: #5D4B5D (Regular content text)
+└─ Muted Text: #9E8D9E (Secondary text, labels, placeholders)
+
+Status Colors:
+├─ Green: #2E7D32 (Present, Approved, Success states)
+├─ Amber: #F57F17 (Pending, Warning states)
+├─ Crimson: #C62828 (Absent, Rejected, Error states)
+└─ Blue: #1565C0 (In Progress, Informational states)
+
+Shadows:
+└─ Card Shadow: rgba(49, 10, 49, 0.05) with 20px blur, 4px offset
+```
+
+#### 5.2.2 Typography System
+```
+Headings:
+├─ H1: 32px, Bold, Color: #310A31
+├─ H2: 24px, Bold, Color: #310A31
+├─ H3: 20px, Semi-Bold (600), Color: #310A31
+└─ H4: 18px, Semi-Bold (600), Color: #310A31
+
+Body Text:
+├─ Large: 16px, Normal, Color: #5D4B5D
+├─ Medium: 14px, Normal, Color: #5D4B5D
+└─ Small: 12px, Normal, Color: #9E8D9E
+
+Font Family: System default sans-serif (Roboto on Android, SF Pro on iOS)
+Line Height: 1.5x for body text, 1.3x for headings
+```
+
+#### 5.2.3 Spacing & Layout
+```
+Padding/Margin Scale:
+├─ xs: 4px
+├─ sm: 8px
+├─ md: 16px
+├─ lg: 24px
+├─ xl: 32px
+└─ 2xl: 48px
+
+Border Radius:
+├─ Cards: 16px
+├─ Buttons: 12px
+└─ Input Fields: 12px
+```
+
+#### 5.2.4 Responsive Grid System
+```
+Mobile (320px - 767px):
+├─ Single column layouts
+├─ Stats cards: 2x2 grid
+├─ Bottom navigation bar
+├─ Full-width forms
+└─ Side padding: 16px
+
+Tablet (768px - 1023px):
+├─ 2-column layouts where appropriate
+├─ Stats cards: 2x2 or 4-column grid
+├─ Side navigation drawer (collapsible)
+├─ Form width: 80% max-width
+└─ Side padding: 24px
+
+Desktop (1024px+):
+├─ Multi-column layouts
+├─ Stats cards: 4-column grid
+├─ Permanent sidebar navigation
+├─ Form width: 600px max-width, centered
+├─ Dashboard content: max-width 1400px
+└─ Side padding: 32px
+```
+
+### 5.3 Animation Standards
+- **Spring Physics**: Use spring-based animations for all interactive elements
+- **Transition Duration**: 200-300ms for most interactions
+- **Easing Curves**: 
+  - Entry animations: Ease-out
+  - Exit animations: Ease-in
+  - Interactive elements: Ease-in-out
+- **Micro-animations**:
+  - Button press: Scale down to 0.95
+  - Card hover (desktop): Scale up to 1.02, add shadow
+  - Loading states: Custom Royal Plum themed spinners
+  - Success states: Checkmark with expand animation
+  - Error states: Shake animation with crimson highlight
+
+### 5.4 Responsive Navigation
+
+#### Employee Navigation
+- **Mobile (320px - 767px)**: Fixed bottom navigation bar with 4 tabs
+  - Home (dashboard icon)
+  - Leaves (calendar icon)
+  - Profile (person icon)
+  - Settings (gear icon)
+- **Tablet (768px - 1023px)**: Bottom navigation bar or optional side drawer
+- **Desktop (1024px+)**: Left sidebar navigation with icons and labels
+
+#### Manager Navigation
+- **Mobile (320px - 767px)**: Hamburger menu with slide-in drawer
+  - Dashboard
+  - Team
+  - Reports
+  - Settings
+- **Tablet (768px - 1023px)**: Collapsible sidebar (icon-only when collapsed)
+- **Desktop (1024px+)**: Permanent expanded sidebar navigation with full labels
+
+#### Admin Navigation
+- **Mobile (320px - 767px)**: Hamburger menu with slide-in drawer
+  - Dashboard
+  - Users
+  - Departments
+  - Settings
+  - Reports
+- **Tablet (768px - 1023px)**: Collapsible sidebar (icon-only when collapsed)
+- **Desktop (1024px+)**: Permanent expanded sidebar navigation with full labels
+
+### 5.5 Component Library (Royal Plum Themed)
+
+#### Stat Cards
+- **Design**: White cards (#FFFFFF) with subtle shadow on cream background
+- **Hover Effect (Desktop)**: Scale to 1.02, enhance shadow
+- **Content**: Icon, label, and value with Royal Plum accents
+- **Responsive**:
+  - Mobile: 2x2 grid, full width in container
+  - Tablet: 2x2 or 4-column grid
+  - Desktop: 4-column grid with 16px gap
+
+#### Data Tables
+- **Design**: White background with Deep Plum headers (#310A31)
+- **Features**: Sortable columns, filterable rows, pagination
+- **Row Hover**: Light plum tint background
+- **Responsive**:
+  - Mobile: Card-based view (stacked data)
+  - Tablet: Horizontal scroll for wide tables
+  - Desktop: Full table display
+
+#### Forms
+- **Fields**: White background with plum border, 12px radius
+- **Validation**: Real-time with status colors (green/crimson)
+- **Focus State**: 2px Deep Plum border
+- **Responsive**:
+  - Mobile: Full-width inputs, vertical stacking
+  - Tablet: 80% width, 2-column for short fields
+  - Desktop: 600px max-width, 2-column for short fields
+
+#### Buttons
+- **Primary**: Deep Plum background (#310A31), Cream text (#F4ECD6)
+- **Secondary**: Cream outline, Plum text
+- **Disabled**: 50% opacity
+- **Press Animation**: Scale to 0.95
+- **Sizes**: Small (32px), Medium (40px), Large (48px)
+
+#### Modals/Dialogs
+- **Overlay**: Semi-transparent plum (#310A31 at 30% opacity)
+- **Content**: White card with 16px radius
+- **Animation**: Slide up from bottom (mobile), fade-scale (desktop)
+- **Responsive**:
+  - Mobile: Full-width bottom sheet
+  - Tablet: 80% width, centered
+  - Desktop: 600px width, centered
+
+#### Charts & Visualizations
+- **Colors**: Use status colors with plum accents
+- **Background**: White cards
+- **Interactive**: Tooltips on hover (desktop), tap (mobile)
+- **Responsive**: Scale proportionally, adjust legend position
+
+#### Loading States
+- **Spinner**: Deep Plum circular progress indicator
+- **Skeleton**: Light plum shimmer on white background
+- **Progress Bar**: Deep Plum fill on cream track
+
+#### Navigation Components
+- **Bottom Nav (Mobile)**: White background, plum active state
+- **Sidebar (Desktop)**: Deep Plum background, cream text
+- **Active Indicator**: Accent color or background highlight
+
+---
+
+## 6. Data Models
+
+### 6.1 User Model
+```dart
+class User {
+  final String id;
+  final String email;
+  final String fullName;
+  final String phone;
+  final UserRole role;
+  final String? departmentId;
+  final String? managerId;
+  final String? profilePhotoUrl;
+  final bool isActive;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+}
+
+enum UserRole { employee, manager, admin }
+```
+
+### 6.2 Attendance Model
+```dart
+class Attendance {
+  final String id;
+  final String userId;
+  final DateTime checkInTime;
+  final Location checkInLocation;
+  final DateTime? checkOutTime;
+  final Location? checkOutLocation;
+  final double? totalHours;
+  final AttendanceStatus status;
+  final DateTime date;
+  final String? notes;
+}
+
+enum AttendanceStatus { present, absent, halfDay, onLeave }
+```
+
+### 6.3 Leave Model
+```dart
+class Leave {
+  final String id;
+  final String userId;
+  final LeaveType leaveType;
+  final DateTime startDate;
+  final DateTime endDate;
+  final int totalDays;
+  final String reason;
+  final LeaveStatus status;
+  final String? approvedBy;
+  final DateTime? approvalDate;
+  final String? managerComments;
+  final String? attachmentUrl;
+}
+
+enum LeaveType { sick, casual, annual, unpaid }
+enum LeaveStatus { pending, approved, rejected }
+```
+
+### 6.4 Department Model
+```dart
+class Department {
+  final String id;
+  final String name;
+  final String? managerId;
+  final String description;
+  final String location;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+}
+```
+
+---
+
+## 7. API Specifications
+
+### 7.1 Authentication Endpoints
+```
+POST /api/auth/login
+POST /api/auth/logout
+POST /api/auth/refresh-token
+POST /api/auth/forgot-password
+POST /api/auth/reset-password
+```
+
+### 7.2 Employee Endpoints
+```
+GET    /api/employee/profile
+PUT    /api/employee/profile
+POST   /api/employee/attendance/check-in
+POST   /api/employee/attendance/check-out
+GET    /api/employee/attendance/history
+POST   /api/employee/leave/request
+GET    /api/employee/leave/list
+GET    /api/employee/leave/balance
+```
+
+### 7.3 Manager Endpoints
+```
+GET    /api/manager/team/employees
+GET    /api/manager/team/attendance
+GET    /api/manager/employee/:id
+GET    /api/manager/leave/pending
+PUT    /api/manager/leave/:id/approve
+PUT    /api/manager/leave/:id/reject
+GET    /api/manager/reports/attendance
+GET    /api/manager/reports/leave
+POST   /api/manager/reports/export
+```
+
+### 7.4 Admin Endpoints
+```
+GET    /api/admin/users
+POST   /api/admin/users
+PUT    /api/admin/users/:id
+DELETE /api/admin/users/:id
+GET    /api/admin/departments
+POST   /api/admin/departments
+PUT    /api/admin/departments/:id
+DELETE /api/admin/departments/:id
+GET    /api/admin/settings
+PUT    /api/admin/settings
+GET    /api/admin/holidays
+POST   /api/admin/holidays
+DELETE /api/admin/holidays/:id
+GET    /api/admin/reports/company-wide
+GET    /api/admin/audit-logs
+```
+
+---
+
+## 8. Security & Authentication
+
+### 8.1 Authentication Flow
+1. User login with email/password
+2. Backend validates credentials
+3. JWT token generated with 24-hour expiration
+4. Token stored in secure storage (Flutter Secure Storage)
+5. Token included in all API requests (Authorization header)
+6. Token refresh mechanism for extended sessions
+
+### 8.2 Authorization
+- **Role-Based Access Control (RBAC)**
+- Route guards based on user roles
+- API endpoint permissions
+- Data filtering based on user scope
+
+### 8.3 Data Security
+- Password hashing (bcrypt)
+- HTTPS for all communications
+- SQL injection prevention
+- XSS protection
+- CSRF tokens
+- Rate limiting
+- Input validation and sanitization
+
+### 8.4 Privacy
+- GDPR compliance
+- Data retention policies
+- User consent management
+- Right to be forgotten
+- Data export capabilities
+
+---
+
+## 9. Performance Requirements
+
+### 9.1 Response Times
+- Page load: < 2 seconds
+- API responses: < 500ms
+- Real-time updates: < 1 second
+
+### 9.2 Scalability
+- Support 10,000+ users
+- Concurrent users: 1,000+
+- Database optimization with indexing
+- Caching strategies (Redis)
+
+### 9.3 Availability
+- 99.9% uptime
+- Load balancing
+- Backup systems
+- Disaster recovery plan
+
+---
+
+## 10. Future Roadmap
+
+### Phase 4: Advanced Features
+- **Biometric Authentication**: Face recognition for check-in
+- **Geo-fencing**: Automatic check-in when entering office
+- **AI-Powered Analytics**: Predictive insights
+- **Mobile App**: Native iOS/Android apps
+- **Shift Management**: Support for multiple shifts
+- **Payroll Integration**: Connect with payroll systems
+- **Time Tracking**: Detailed task-level time tracking
+
+### Phase 5: Integrations
+- **Slack/Teams**: Attendance notifications
+- **Calendar Sync**: Google Calendar, Outlook integration
+- **HR Systems**: Integration with popular HRMS
+- **Single Sign-On**: Enterprise SSO support
+
+### Phase 6: Enterprise Features
+- **Multi-tenant Architecture**: Support multiple organizations
+- **White-labeling**: Custom branding per organization
+- **Advanced Permissions**: Fine-grained access control
+- **Workflow Automation**: Custom approval workflows
+- **Advanced Reporting**: Business intelligence dashboards
+
+---
+
+## Appendix
+
+### A. Glossary
+- **Check-in**: Recording the start of work period
+- **Check-out**: Recording the end of work period
+- **Grace Period**: Allowed lateness without marking late
+- **Leave Balance**: Remaining leave days available
+- **Working Hours**: Configured standard work duration
+
+### B. References
+- Flutter Documentation: https://flutter.dev
+- Material Design: https://material.io
+- Flask Documentation: https://flask.palletsprojects.com
+
+### C. Change Log
+- v1.0: Initial PRD creation
+- Employee phase completed
+- Manager and Admin phases documented for implementation
+
+---
+
+**Document Version**: 1.0  
+**Last Updated**: December 4, 2025  
+**Status**: Employee Phase Complete, Manager & Admin Phases Pending
