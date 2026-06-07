@@ -28,6 +28,10 @@ When building this database, we resolved several system loopholes with specific 
 *   **The Decision:** We use `shift_date` on the `attendance_sessions` table and link sessions to a `shift_id`.
 *   **The Logic:** Night shifts span across midnight (e.g. clock-in Monday 10 PM, clock-out Tuesday 6 AM). If we keyed off the calendar check-in date, a worker checking out on Tuesday would face key violations or logic errors when trying to clock back in for Tuesday night. Assigning a logical `shift_date` (the start date of the shift) solves this boundary issue.
 
+### F. Remote/Work-From-Home (REMOTE) Work Type
+*   **The Decision:** We added `'REMOTE'` to the `work_type` check constraint.
+*   **The Logic:** Remote workers do not work in the physical office (so they bypass geofencing) but they also do not travel or meet clients (so they do not need the detailed timeline activity logs). Setting `work_type = 'REMOTE'` allows them to check in from anywhere without flags, keeping their log history simple.
+
 ---
 
 ## 2. Database Architecture & ER Diagram
@@ -103,7 +107,7 @@ CREATE TABLE users (
     full_name VARCHAR(150) NOT NULL,
     phone VARCHAR(20),
     role VARCHAR(50) NOT NULL CHECK (role IN ('ADMIN', 'MANAGER', 'EMPLOYEE')),
-    work_type VARCHAR(50) NOT NULL CHECK (work_type IN ('FIELD', 'OFFICE')),
+    work_type VARCHAR(50) NOT NULL CHECK (work_type IN ('FIELD', 'OFFICE', 'REMOTE')),
     department_id UUID REFERENCES departments(id) ON DELETE SET NULL,
     manager_id UUID REFERENCES users(id) ON DELETE SET NULL,
     shift_id UUID REFERENCES shifts(id) ON DELETE SET NULL,

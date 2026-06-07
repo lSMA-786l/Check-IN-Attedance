@@ -464,7 +464,7 @@ backend/
 - full_name (VARCHAR)
 - phone (VARCHAR)
 - role (VARCHAR: ADMIN/MANAGER/EMPLOYEE)
-- work_type (VARCHAR: FIELD/OFFICE)
+- work_type (VARCHAR: FIELD/OFFICE/REMOTE)
 - department_id (UUID, Foreign Key)
 - manager_id (UUID, Foreign Key to Users)
 - shift_id (UUID, Foreign Key to Shifts)
